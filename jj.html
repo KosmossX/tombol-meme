@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <link rel="shortcut icon" href="Picture/musik.png" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>musik</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Tampilan awal jebakan (umpan) */
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Tampilan Jumpscare (Disembunyikan dulu) */
+        #jumpscare {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        #jumpscare img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Menyesuaikan ukuran layar penuh */
+        }
+
+        /* Tombol Exit di Pojok Kiri Bawah */
+        #exit-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 10000;
+            transition: 0.2s;
+        }
+
+        #exit-btn:hover {
+            background-color: rgb(255, 0, 0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Konten Umpan / Pancingan -->
+    <div class="container" id="safe-content">
+        <h1>Klik tombol di bawah untuk memutar musik!</h1>
+        <p>Pastikan volume suara perangkat Anda sudah aktif.</p>
+        <button onclick="triggerPrank()">musik.mp3</button>
+    </div>
+
+    <!-- Area Jumpscare (Gambar Setan) -->
+    <div id="jumpscare">
+        <img id="jumpscare-img" src="Picture/hantu3.jpg" alt="Jumpscare">
+        <button id="exit-btn" onclick="triggerPrank()">EXIT</button>
+    </div>
+
+    <!-- Elemen Audio (Suara Teriakan Setan) -->
+    <audio id="screamer" src="Audio/teriak.mp3" preload="auto"></audio>
+
+    <script>
+        // Daftar foto hantu pengganti (bisa ditambah atau diganti nama filenya)
+        const ghostImages = ["Picture/hantu3.jpg", "Picture/hantu2.jpg", "Picture/hantu.jpg"];
+
+        function triggerPrank() {
+            // Sembunyikan konten aman
+            document.getElementById('safe-content').style.display = 'none';
+            
+            // Pilih foto hantu secara acak atau bergantian saat jumpscare muncul
+            const randomImg = ghostImages[Math.floor(Math.random() * ghostImages.length)];
+            document.getElementById('jumpscare-img').src = randomImg;
+
+            // Munculkan layar jumpscare
+            document.getElementById('jumpscare').style.display = 'flex';
+            
+            // Putar suara teriakan
+            var audio = document.getElementById('screamer');
+            audio.currentTime = 0; // Mulai dari awal
+            audio.play().catch(error => {
+                console.log("Audio diblokir oleh browser.");
+            });
+
+            // Masuk ke mode fullscreen otomatis
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log("Fullscreen ditolak oleh browser.");
+                });
+            }
+        }
+
+        function exitPrank() {
+            // Hentikan dan reset audio
+            var audio = document.getElementById('screamer');
+            audio.pause();
+            audio.currentTime = 0;
+
+            // Sembunyikan layar jumpscare
+            document.getElementById('jumpscare').style.display = 'none';
+
+            // Tampilkan kembali konten awal
+            document.getElementById('safe-content').style.display = 'block';
+
+            // Keluar dari mode fullscreen jika aktif
+            if (document.fullscreenElement) {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <link rel="shortcut icon" href="Picture/logocrm.png" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey Antek-antek Asing!</title>
+    <style>
+        /* Mengatur halaman penuh */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            
+            /* BACKGROUND NYA DI SINI */
+            background-image: url('Picture/p.jpg'); 
+            background-size: cover;       
+            background-position: center;  
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+            
+            font-family: sans-serif;
+            position: relative; /* Penting untuk mengatur urutan lapisan anak elemen */
+        }
+
+        /* Lapisan transparan gelap (di belakang tombol) */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); 
+            z-index: 1; /* Lapisan bawah */
+        }
+
+        /* WADAH TOMBOL (PASTI DI ATAS / DI DEPAN BACKGROUND) */
+        .kontainer-tombol {
+            display: flex;
+            gap: 20px; 
+            position: relative; /* Mengaktifkan fungsi z-index */
+            z-index: 10;        /* Nilai tinggi agar tombol berada di lapisan paling depan */
+        }
+
+        /* Desain tombol bulat */
+        .tombol-bulat {
+            color: white;              
+            width: 80px;               
+            height: 80px;              
+            border-radius: 50%;        
+            font-size: 24px;           
+            border: none;              
+            cursor: pointer;           
+            display: flex;
+            justify-content: center;   
+            align-items: center;       
+            transition: all 0.2s ease; 
+        }
+
+        /* Tombol Putar (Merah) */
+        .tombol-merah {
+            background-color: #e53935; 
+            box-shadow: 0 6px 20px rgba(229, 57, 53, 0.5);
+        }
+        .tombol-merah:hover {
+            background-color: #c62828; 
+            transform: scale(1.08);
+        }
+
+        /* Tombol Atur Ulang */
+        .tombol-reset {
+            background-color: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(5px); 
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        .tombol-reset:hover {
+            background-color: rgba(255, 255, 255, 0.4); 
+            transform: scale(1.08);
+        }
+
+        .tombol-bulat:active {
+            transform: scale(0.92);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Lapisan Gelap Latar Belakang (z-index: 1) -->
+    <div class="overlay"></div>
+
+    <!-- File Audio (Ganti 'lagu.mp3' dengan file musik Anda) -->
+    <audio id="myAudio" src="Audio/p.mp3"></audio>
+
+    <!-- Wadah Tombol Depan (z-index: 10) -->
+    <div class="kontainer-tombol">
+        <button class="tombol-bulat tombol-merah" id="btnMusik" onclick="putarMusik()">▶</button>
+        <button class="tombol-bulat tombol-reset" id="btnReset" onclick="ulangMusik()">🔄</button>
+        <a href="j&p.html"><button class="tombol-bulat">⌂</button></a>
+    </div>
+
+    <script>
+        var audio = document.getElementById("myAudio");
+        var tombolPutar = document.getElementById("btnMusik");
+
+        function putarMusik() {
+            if (audio.paused) {
+                audio.play();
+                tombolPutar.innerHTML = "⏸"; 
+            } else {
+                audio.pause();
+                tombolPutar.innerHTML = "▶"; 
+            }
+        }
+
+        function ulangMusik() {
+            audio.currentTime = 0; 
+            if (audio.paused) {
+                audio.play();
+                tombolPutar.innerHTML = "⏸";
+            }
+        }
+    </script>
+
+</body>
+</html>

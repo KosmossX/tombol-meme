@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <link rel="shortcut icon" href="Picture/kuda.bmp" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <title>Tombol</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background: #222; gap: 20px; margin: 0; }
+        button { padding: 15px 30px; font-size: 18px; font-weight: bold; color: white; background: #ff4757; border: none; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        button:hover { background: #ff6b81; transform: scale(1.05); }
+        button:active { transform: scale(0.95); }
+    </style>
+</head>
+<body>
+    <a href="j.html"><button>Saya Akan Lawan!</button></a>
+    <a href="j2.html"><button>Dulu Saya Diam</button></a>
+    <a href="p.html"><button>Hey Antek-antek Asing!</button></a>
+    <a href="m.html"><button>Hey Maling Pangsit!</button></a>
+    <a href="jj.html"><button>Musik Lainya</button></a>
+
+    <script>
+        // Variabel global untuk menyimpan audio yang sedang berputar
+        let currentAudio = null;
+
+        function playMeme(url) {
+            // Jika ada suara yang sedang berputar, hentikan segera
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+
+            // Putar suara yang baru dipilih
+            currentAudio = new Audio(url);
+            currentAudio.play();
+        }
+    </script>
+
+</body>
+</html>

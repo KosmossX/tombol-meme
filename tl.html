@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <link rel="shortcut icon" href="Picture/kuda.bmp" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <!-- Meta tag wajib agar tampilan pas dan proporsional di layar Android -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tombol</title>
+    <style>
+        body { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; /* Menggunakan min-height agar fleksibel jika tombol turun ke bawah */
+            background: #222; 
+            gap: 15px; 
+            margin: 0; 
+            padding: 20px; /* Jarak aman agar tidak menempel di pinggir layar HP */
+            flex-wrap: wrap; /* KUNCI RESPONSif: otomatis turun ke bawah jika layar sempit (Android) */
+            box-sizing: border-box;
+        }
+        
+        button { 
+            padding: 15px 25px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            color: white; 
+            background: #ff4757; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            width: auto;
+        }
+
+        /* Optimasi ukuran tombol khusus untuk layar HP (Android) */
+        @media (max-width: 600px) {
+            button {
+                width: 100%; /* Tombol melebar penuh di HP agar mudah ditekan */
+                font-size: 16px;
+                padding: 12px 20px;
+            }
+            a {
+                width: 100%; /* Membuat link pembungkus tombol musik ikut melebar */
+            }
+        }
+
+        button:hover { background: #ff6b81; transform: scale(1.05); }
+        button:active { transform: scale(0.95); }
+    </style>
+</head>
+<body>
+    <!-- Perbaikan tag penutup tombol dari </> menjadi </button> -->
+    <button onclick="playMeme('Audio/j.mp3')">Saya Akan Lawan!</button>
+    <button onclick="playMeme('Audio/j2.mp3')">Dulu Saya Diam</button>
+    <button onclick="playMeme('Audio/p.mp3')">Hey Antek-antek Asing!</button>
+    <button onclick="playMeme('Audio/maling-pangsit.mp3')">Hey Maling Pangsit!</button>
+    <a href="jj.html"><button style="background: #2ed573;">Musik Lainnya</button></a> <!-- Mengubah warna tombol navigasi agar beda -->
+
+    <script>
+        let currentAudio = null;
+
+        function playMeme(url) {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            currentAudio = new Audio(url);
+            currentAudio.play();
+        }
+    </script>
+</body>
+</html>
