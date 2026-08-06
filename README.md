@@ -1,2 +1,2 @@
 # Tombol meme
-dioencet keluar suara
+dipencet keluar suara
